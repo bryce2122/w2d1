@@ -1,8 +1,10 @@
   class Piece
+    attr_reader :moves, :color, :type
 
     def initialize(type = "0", color = "0")
       @color = color
       @type = type
+      @moves = ["horizontal"]
     end
 
     def display
@@ -35,8 +37,6 @@
       return false if start_column != finish_column
       return true
     end
-
-    attr_reader :color, :type
 
 
   end
