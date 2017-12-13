@@ -30,7 +30,7 @@ class Display
   end
 
   def swap_pieces(start_pos,piece)
-    if @cursor.move && start_pos
+
       end_pos = piece.current_pos
       p end_pos
       start_row,start_col = start_pos
@@ -43,11 +43,11 @@ class Display
       @cursor.move = false
       piece_postion.current_pos = end_pos
       empty_position.current_pos = start_pos
-    end
+
 
 
   end
-  def selected?(piece)
+  def square_selected?(piece)
 
     if @cursor.selected
       piece.set_square_color(:blue)
@@ -65,16 +65,14 @@ class Display
     until false
 
       render
+
       @cursor.get_input
+
       piece = current_square(@cursor.cursor_pos)
 
-      if selected?(piece)
-        start_pos = piece.current_pos
-      end
+      start_pos = piece.current_pos if square_selected?(piece)
 
-
-
-      swap_pieces(start_pos,piece)
+      swap_pieces(start_pos,piece) if @cursor.move && start_pos
 
 
 
