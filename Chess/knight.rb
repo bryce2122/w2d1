@@ -1,9 +1,11 @@
 class Knight < Piece
-  def initialize(type, color)
+  def initialize(type = "\u{2658}", color)
     @move_direction = ["l_move"]
     @possible_moves = [[1, 2],[2, 1]]
     super type, color
   end
+
+
     def l_move(start, finish)
       start_row, start_column = start
       finish_row, finish_column = finish

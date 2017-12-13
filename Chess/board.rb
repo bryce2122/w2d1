@@ -9,11 +9,11 @@ class Board
     (0..7).each do |row|
       (0..7).each do |col|
         if BLACK_PIECES.key?([row, col])
-          current_piece = Piece.new(BLACK_PIECES[[row, col]], "black")
+          current_piece =  Object.const_get(BLACK_PIECES[[row, col]]).new("black")
           current_piece.current_pos = [row, col]
           grid[row][col] = current_piece
         elsif WHITE_PIECES.key?([row, col])
-          current_piece = Piece.new(WHITE_PIECES[[row, col]], "white")
+          current_piece =  Object.const_get(BLACK_PIECES[[row, col]]).new("white")
           current_piece.current_pos = [row, col]
           grid[row][col] = current_piece
         else

@@ -1,7 +1,8 @@
+  require_relative 'sliding.rb'
   class Piece
     attr_reader :moves, :color, :type, :square_color
     attr_accessor :current_pos
-
+    include SlidingPiece
     def initialize(type = "e", color = "0")
       @color = color
       @type = type

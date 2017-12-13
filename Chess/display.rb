@@ -58,6 +58,11 @@ class Display
     end
   end
 
+  def reset(piece)
+    revert_to_old_color
+    @previous_square = piece
+  end
+
 
 
   def loop
@@ -74,20 +79,9 @@ class Display
 
       swap_pieces(start_pos,piece) if @cursor.move && start_pos
 
-
-
-
-      if piece.square_color != :blue
-        revert_to_old_color
-        @previous_square = piece
-      end
-
-
-
-
-
+      reset(piece) if piece.square_color != :blue
     end
-    # end
+
   end
 end
 
