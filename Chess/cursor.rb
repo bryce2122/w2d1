@@ -35,7 +35,8 @@ MOVES = {
 
 class Cursor
 
-  attr_reader :cursor_pos, :board, :selected, :move
+  attr_reader :cursor_pos, :board, :selected
+  attr_accessor :move
 
   def initialize(cursor_pos, board)
     @cursor_pos = cursor_pos
@@ -107,7 +108,7 @@ class Cursor
     when :space
       @selected = true
 
-    when :move 
+    when :move
       @move = true
 
     else

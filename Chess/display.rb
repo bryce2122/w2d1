@@ -56,6 +56,10 @@ class Display
         empty_position = @cursor.board.grid[end_row][end_col]
         @cursor.board.grid[start_row][start_col] = empty_position
         @cursor.board.grid[end_row][end_col] = piece_postion
+        @cursor.move = false
+        piece_postion.current_pos = end_pos
+        empty_position.current_pos = start_pos
+
 
       end
 
