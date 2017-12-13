@@ -29,6 +29,25 @@ class Display
     @cursor.board.grid[row][col]
   end
 
+  def swap_pieces(start_pos,piece)
+    if @cursor.move && start_pos
+      end_pos = piece.current_pos
+      p end_pos
+      start_row,start_col = start_pos
+      end_row, end_col = end_pos
+      puts "MOVE IS TRUE"
+      piece_postion = @cursor.board.grid[start_row][start_col]
+      empty_position = @cursor.board.grid[end_row][end_col]
+      @cursor.board.grid[start_row][start_col] = empty_position
+      @cursor.board.grid[end_row][end_col] = piece_postion
+      @cursor.move = false
+      piece_postion.current_pos = end_pos
+      empty_position.current_pos = start_pos
+    end
+
+
+  end
+
 
 
   def loop
@@ -46,22 +65,7 @@ class Display
         piece.set_square_color(:red)
       end
 
-      if @cursor.move && start_pos
-        end_pos = piece.current_pos
-        p end_pos
-        start_row,start_col = start_pos
-        end_row, end_col = end_pos
-        puts "MOVE IS TRUE"
-        piece_postion = @cursor.board.grid[start_row][start_col]
-        empty_position = @cursor.board.grid[end_row][end_col]
-        @cursor.board.grid[start_row][start_col] = empty_position
-        @cursor.board.grid[end_row][end_col] = piece_postion
-        @cursor.move = false
-        piece_postion.current_pos = end_pos
-        empty_position.current_pos = start_pos
-
-
-      end
+      swap_pieces(start_pos,piece)
 
 
 
