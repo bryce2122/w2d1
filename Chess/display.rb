@@ -1,26 +1,77 @@
 require_relative 'board'
 require 'colorize'
 require_relative 'cursor.rb'
+require 'byebug'
 class Display
   attr_reader :cursor_pos
   def initialize
 
-    @cursor_pos = Cursor.new([6,0], Board.new)
+    @cursor = Cursor.new([6,0], Board.new)
+
+    @previous_square = @cursor.board.grid[6][0]
+    @previous_square.set_square_color(:red)
 
   end
 
 
   def render
 
-    @cursor_pos.board.render
+    @cursor.board.render
 
   end
 
+  def revert_to_old_color
+    @previous_square.set_square_color(:grey)
+  end
+
+  def current_square(cursor_pos)
+    row, col = cursor_pos
+    @cursor.board.grid[row][col]
+  end
+
+
+
   def loop
-    # 5.times do
+    start_pos = nil
+    until false
+
       render
-      @cursor_pos.get_input
-      render
+      @cursor.get_input
+      piece = current_square(@cursor.cursor_pos)
+
+      if @cursor.selected
+        piece.set_square_color(:blue)
+        start_pos = piece.current_pos
+      else
+        piece.set_square_color(:red)
+      end
+
+      if @cursor.move && start_pos
+        end_pos = piece.current_pos
+        p end_pos
+        start_row,start_col = start_pos
+        end_row, end_col = end_pos
+        puts "MOVE IS TRUE"
+        piece_postion = @cursor.board.grid[start_row][start_col]
+        empty_position = @cursor.board.grid[end_row][end_col]
+        @cursor.board.grid[start_row][start_col] = empty_position
+        @cursor.board.grid[end_row][end_col] = piece_postion
+
+      end
+
+
+
+
+      if piece.square_color != :blue
+        revert_to_old_color
+        @previous_square = piece
+      end
+
+
+
+
+
+    end
     # end
   end
 end
@@ -32,7 +83,8 @@ end
 # arr[0].red
 # puts 'hello'.red
 #
-display = Display.new
-# display.cursor_pos.board.board[6][0].type.red
-display.loop
-puts "\u{265C} ".colorize(background: :yellow)
+# display = Display.new
+# # display.cursor_pos.board.board[6][0].type.red
+# display.loop
+# Display.new.render
+Display.new.loop

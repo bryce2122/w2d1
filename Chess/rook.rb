@@ -1,6 +1,6 @@
 class Rook
   def initialize(type, color)
-    @moves = ['vertical', 'horizontal']
+    @move_direction = ['vertical', 'horizontal']
     super type, color
   end
 end

@@ -1,6 +1,6 @@
 class Knight < Piece
   def initialize(type, color)
-    @moves = ["l_move"]
+    @move_direction = ["l_move"]
     @possible_moves = [[1, 2],[2, 1]]
     super type, color
   end

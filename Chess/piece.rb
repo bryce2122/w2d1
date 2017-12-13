@@ -1,14 +1,22 @@
   class Piece
-    attr_reader :moves, :color, :type
+    attr_reader :moves, :color, :type, :square_color
+    attr_accessor :current_pos
 
-    def initialize(type = "0", color = "0")
+    def initialize(type = "e", color = "0")
       @color = color
       @type = type
-      @moves = ["horizontal"]
+      @square_color
+      @types_of_moves = ["horizontal"]
+      @moves = []
+
     end
 
     def display
       type
+    end
+
+    def set_square_color(color)
+      @square_color = color
     end
 
     def horizontal(start, finish)

@@ -1,6 +1,6 @@
 class Queen
   def initialize(type, color)
-    @moves = ['diagonal', 'horizontal', 'vertical']
+    @move_direction = ['diagonal', 'horizontal', 'vertical']
     super type, color
   end
 end

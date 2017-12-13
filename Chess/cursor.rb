@@ -4,6 +4,7 @@ require "io/console"
 KEYMAP = {
   " " => :space,
   "h" => :left,
+  "m" => :move,
   "j" => :down,
   "k" => :up,
   "l" => :right,
@@ -22,6 +23,7 @@ KEYMAP = {
   "\177" => :backspace,
   "\004" => :delete,
   "\u0003" => :ctrl_c,
+
 }
 
 MOVES = {
@@ -33,11 +35,13 @@ MOVES = {
 
 class Cursor
 
-  attr_reader :cursor_pos, :board
+  attr_reader :cursor_pos, :board, :selected, :move
 
   def initialize(cursor_pos, board)
     @cursor_pos = cursor_pos
     @board = board
+    @selected = false
+    @move = false
   end
 
   def get_input
@@ -81,7 +85,9 @@ class Cursor
     case key
     when :ctrl_c
       Process.exit(0)
-    when :return || :space
+
+
+    when :return
       p @cursor_pos
     when :left
       update_pos(MOVES[:left])
@@ -98,12 +104,19 @@ class Cursor
     when :up
       update_pos(MOVES[:up])
       p @cursor_pos
+    when :space
+      @selected = true
+
+    when :move 
+      @move = true
+
     else
       nil
     end
   end
 
   def update_pos(diff)
+    @selected = false
     @cursor_pos[0] += diff[0]
     @cursor_pos[1] += diff[1]
   end
