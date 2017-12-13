@@ -47,6 +47,16 @@ class Display
 
 
   end
+  def selected?(piece)
+
+    if @cursor.selected
+      piece.set_square_color(:blue)
+      true
+    else
+      piece.set_square_color(:red)
+      false
+    end
+  end
 
 
 
@@ -58,12 +68,11 @@ class Display
       @cursor.get_input
       piece = current_square(@cursor.cursor_pos)
 
-      if @cursor.selected
-        piece.set_square_color(:blue)
+      if selected?(piece)
         start_pos = piece.current_pos
-      else
-        piece.set_square_color(:red)
       end
+
+
 
       swap_pieces(start_pos,piece)
 
